@@ -1,4 +1,3 @@
-from collections import deque, OrderedDict
 import sys
 from time import time
 
@@ -15,29 +14,31 @@ for FILE_NO in range(1,6): # i는 파일번호
     # 그 이후로는 수업과정이 주어짐
     # 출력은 "#n YES/NO"로
     # 그냥 주어진 교육과정 중 필수과정의 순서를 따지면 그만
+    # 자바라면 LinkedHashSet 한방이면 되는데 파이썬은 그게 안되네...
     
     정답 = []
     
     requiredCourse = list(input())
     N = int(input())
     n = 0
-    courses = [deque(input()) for _ in range(N)]
+    courses = [input() for _ in range(N)]
 
     for course in courses:
         n += 1
-        requiredCourseCheck = OrderedDict()
+        requiredCourseCheck = []
 
         for c in course:
-            requiredCourseCheck[c] = None
+            if c in requiredCourse and not c in requiredCourseCheck:
+                requiredCourseCheck.append(c)
 
         정답_임시 = f'#{n} '
         # 왜 NO만 나오는지 아라보자...
-        if requiredCourse == list(requiredCourseCheck.keys()):
+        if requiredCourse == requiredCourseCheck:
             정답_임시 += 'YES'
         else:
             정답_임시 += 'NO'
-
         정답.append(정답_임시)
+
 
 #============================================================================#
 
