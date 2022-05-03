@@ -3,6 +3,7 @@
 # 그래프 초기화
 graph = [None] * 8
 visitied = [False] * len(graph)
+stack = []
 
 graph[1] = [2, 3]
 graph[2] = [1,4,5]
@@ -12,13 +13,15 @@ graph[5] = [2]
 graph[6] = [3]
 graph[7] = [3]
 
-
-#전위순회 실시
+#중위순회 실시
 def dfs(start, graph, visitied):
     if not visitied[start]: print(start, end=' ')
     visitied[start] = True
 
-    for child in graph[start]:
+    children = list(graph[start]) #순회 대상
+    sorted(children, reverse=True)
+
+    for child in children:
         if visitied[child]: continue
         visitied[child] = True
 
@@ -27,4 +30,4 @@ def dfs(start, graph, visitied):
 
     
 
-dfs(1, graph, visitied)
+dfs(4, graph, visitied)
